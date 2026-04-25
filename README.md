@@ -79,10 +79,13 @@
 <h2>Installation and Setup</h2>
 
 <h3>1. Clone the Repository</h3>
-<pre><code>git clone https://github.com/your-username/ekalavya.git
-cd ekalavya</code></pre>
+<pre><code>git clone https://github.com/A-K-D-2000/Ekalavya-LearningPlatform.git
+cd Ekalavya-LearningPlatform</code></pre>
 
 <h3>2. Install Dependencies</h3>
+
+<p><b>Root:</b></p>
+<pre><code>npm install</code></pre>
 
 <p><b>Backend:</b></p>
 <pre><code>cd server
@@ -108,13 +111,12 @@ npm install</code></pre>
 
 <h2>Run the Application</h2>
 
-<p><b>Start Backend:</b></p>
-<pre><code>cd server
-npm start</code></pre>
+<p><b>Start Backend (from root folder):</b></p>
+<pre><code>node server/server.js</code></pre>
 
 <p><b>Start Frontend:</b></p>
 <pre><code>cd client
-npm start</code></pre>
+npm run dev</code></pre>
 
 <h2>Application URLs</h2>
 <ul>
@@ -122,14 +124,25 @@ npm start</code></pre>
 <li>Backend: http://localhost:5000</li>
 </ul>
 
-<h2>Project Structure</h2>
-<pre><code>Ekalavya/
+<h2>Project Structure (after installing dependencies)</h2>
+
+<pre><code>Ekalavya-LearningPlatform/
 │
 ├── client/
+│   ├── node_modules/
+│   └── ...
+│
 ├── server/
+│   └── ...
+│
 ├── src/
+│
+├── node_modules/
 ├── package.json
+├── package-lock.json
 </code></pre>
+
+<p><i>Note: Dependencies are installed in both root and client folders. Run npm install in both locations.</i></p>
 
 <h2>API Endpoints</h2>
 
@@ -171,7 +184,8 @@ npm start</code></pre>
 
 <h2>Notes</h2>
 <ul>
-<li>node_modules is not included in the repository</li>
+<li>node_modules folders are not included in the repository</li>
+<li>They will be created automatically after running npm install</li>
 <li>Run npm install before starting the project</li>
 <li>Ensure MongoDB connection string is correctly configured</li>
 </ul>
