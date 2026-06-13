@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ added
-import axios from "axios";
+import api from "../api/axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
@@ -29,7 +29,6 @@ export default function Login() {
 
       // ✅ FIX: smooth navigation (no page reload)
       navigate("/dashboard");
-
     } catch (err) {
       console.error(err);
       alert("Login failed");
@@ -37,32 +36,32 @@ export default function Login() {
   };
 
   return (
-  <div className="container">
-    <div className="card" style={{ maxWidth: "400px", margin: "auto" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+    <div className="container">
+      <div className="card" style={{ maxWidth: "400px", margin: "auto" }}>
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
 
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="input"
-        />
+        <form onSubmit={handleSubmit} className="form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input"
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input"
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input"
+          />
 
-        <button type="submit" className="btn" style={{ width: "100%" }}>
-          Login
-        </button>
-      </form>
+          <button type="submit" className="btn" style={{ width: "100%" }}>
+            Login
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 }

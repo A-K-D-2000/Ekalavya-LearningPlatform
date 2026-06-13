@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import "./Navbar.css";
 
 function Navbar() {
@@ -19,14 +19,11 @@ function Navbar() {
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/notifications`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const res = await api.get("/notifications", {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       setNotifications(res.data);
     } catch (err) {
