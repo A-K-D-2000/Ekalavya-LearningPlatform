@@ -9,7 +9,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://ekalavya-learning-platform.vercel.app",
+      "https://ekalavya-learning-platform-lp7q5wd2w-amita-kumari-s-projects.vercel.app",
+    ],
     credentials: true,
   }),
 );
