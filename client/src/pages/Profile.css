@@ -1,0 +1,103 @@
+/* 🌐 Page */
+body {
+  background-color: #f3f4f6;
+  font-family: Arial, sans-serif;
+}
+
+/* 📦 Container */
+.profile-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+/* 🧑 Header */
+.profile-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.profile-title {
+  font-size: 28px;
+  color: #111827;
+  margin-bottom: 5px;
+}
+
+.profile-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 📧 Card */
+.profile-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Row inside card */
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* 📊 Section */
+.profile-section {
+  margin-top: 10px;
+}
+
+.section-title {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #374151;
+}
+
+/* 📊 Stats */
+.stats-container {
+  display: flex;
+  gap: 20px;
+}
+
+.stat-box {
+  flex: 1;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Value first (more modern) */
+.stat-value {
+  font-size: 30px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.stat-label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ⏳ Loading */
+.loading {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  color: #374151;
+}
