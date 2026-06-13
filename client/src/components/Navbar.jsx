@@ -10,8 +10,16 @@ function Navbar() {
   const [notifications, setNotifications] = useState(null);
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const dropdownRef = useRef();
+
+  const toggleTheme = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    localStorage.setItem("theme", next);
+    document.documentElement.setAttribute("data-theme", next);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -37,8 +45,8 @@ function Navbar() {
   }, [token]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -48,22 +56,30 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-brand">📚 Ekalavya</Link>
+      <Link to="/" className="nav-brand">
+        📚 <span>Ekalavya</span>
+      </Link>
 
-      {/* Hamburger button - only visible on mobile */}
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? "✕" : "☰"}
       </button>
 
-      {/* Nav links */}
       <div className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
-        <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link to="/" onClick={() => setMenuOpen(false)}>
+          Home
+        </Link>
 
         {token ? (
           <>
-            <Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
-            <Link to="/add" onClick={() => setMenuOpen(false)}>Add Item</Link>
-            <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
+            <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
+              Dashboard
+            </Link>
+            <Link to="/add" onClick={() => setMenuOpen(false)}>
+              Add Item
+            </Link>
+            <Link to="/profile" onClick={() => setMenuOpen(false)}>
+              Profile
+            </Link>
 
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button className="notify-btn" onClick={() => setOpen(!open)}>
@@ -72,35 +88,60 @@ function Navbar() {
                   <span className="badge">{notifications.due.length}</span>
                 )}
               </button>
-
               {open && notifications && (
                 <div className="dropdown">
-                  <h4>Due</h4>
+                  <p className="dropdown-title">Overdue</p>
                   {notifications.due.length === 0 ? (
-                    <p>No due items</p>
+                    <p className="dropdown-empty">All clear! 🎉</p>
                   ) : (
                     notifications.due.map((item) => (
-                      <p key={item._id}>⚠️ {item.title}</p>
+                      <p key={item._id} className="dropdown-item">
+                        ⚠️ {item.title}
+                      </p>
                     ))
                   )}
-                  <h4>Upcoming</h4>
+                  <p className="dropdown-title" style={{ marginTop: "10px" }}>
+                    Upcoming
+                  </p>
                   {notifications.upcoming.length === 0 ? (
-                    <p>No upcoming items</p>
+                    <p className="dropdown-empty">Nothing soon</p>
                   ) : (
                     notifications.upcoming.map((item) => (
-                      <p key={item._id}>⏳ {item.title}</p>
+                      <p key={item._id} className="dropdown-item">
+                        ⏳ {item.title}
+                      </p>
                     ))
                   )}
                 </div>
               )}
             </div>
 
-            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              title="Toggle theme"
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
-            <Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
+            <Link to="/login" onClick={() => setMenuOpen(false)}>
+              Login
+            </Link>
+            <Link to="/register" onClick={() => setMenuOpen(false)}>
+              Register
+            </Link>
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              title="Toggle theme"
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
           </>
         )}
       </div>

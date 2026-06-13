@@ -5,34 +5,26 @@ import "./Profile.css";
 function Profile() {
   const [data, setData] = useState(null);
   const [stats, setStats] = useState(null);
+
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const res = await api.get("/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log("PROFILE DATA:", res.data);
         setData(res.data);
       } catch (err) {
         console.error("PROFILE ERROR:", err);
       }
     };
+
     const fetchAnalytics = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const res = await api.get("/learning/analytics", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log("ANALYTICS:", res.data);
         setStats(res.data);
       } catch (err) {
         console.error("ANALYTICS ERROR:", err);
@@ -43,59 +35,58 @@ function Profile() {
     fetchAnalytics();
   }, []);
 
-  if (!data || !stats) return <p className="loading">Loading...</p>;
+  if (!data || !stats) return <p className="loading">Loading profile...</p>;
 
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h2 className="profile-title">Profile</h2>
+        <h2>My Profile</h2>
       </div>
 
-      {/* User Info */}
-      <div className="profile-card">
-        <div className="profile-row">
-          <span className="label">Email</span>
-          <span className="value">{data.email}</span>
+      <div className="profile-email-card">
+        <div className="profile-avatar">👤</div>
+        <div>
+          <h3>{data.email}</h3>
+          <p>
+            {stats.total} resource{stats.total !== 1 ? "s" : ""} saved ·{" "}
+            {data.totalVisits} total visits
+          </p>
         </div>
       </div>
 
-      {/* Stats Section */}
-      {/* Stats Section */}
-      <div className="profile-section">
-        <h3 className="section-title">Your Learning Analytics</h3>
-
-        <div className="stats-container">
-          <div className="stat-box">
-            <p className="stat-value">{stats.total}</p>
-            <p className="stat-label">Total Topics</p>
-          </div>
-
-          <div className="stat-box">
-            <p className="stat-value">{stats.understood}</p>
-            <p className="stat-label">Understood</p>
-          </div>
-
-          <div className="stat-box">
-            <p className="stat-value">{stats.confused}</p>
-            <p className="stat-label">Confused</p>
-          </div>
+      <p className="analytics-title">Learning Analytics</p>
+      <div className="stats-grid">
+        <div className="stat-box">
+          <div className="stat-value">{stats.total}</div>
+          <div className="stat-label">Total</div>
         </div>
-
-        <div className="stats-container" style={{ marginTop: "15px" }}>
-          <div className="stat-box">
-            <p className="stat-value">{stats.revising}</p>
-            <p className="stat-label">Revising</p>
+        <div className="stat-box">
+          <div className="stat-value" style={{ color: "var(--primary)" }}>
+            {stats.understood}
           </div>
-
-          <div className="stat-box">
-            <p className="stat-value">{stats.notVisited}</p>
-            <p className="stat-label">Not Visited</p>
+          <div className="stat-label">Understood</div>
+        </div>
+        <div className="stat-box">
+          <div className="stat-value" style={{ color: "var(--accent)" }}>
+            {stats.revising}
           </div>
-
-          <div className="stat-box">
-            <p className="stat-value">{stats.totalVisits}</p>
-            <p className="stat-label">Total Visits</p>
+          <div className="stat-label">Revising</div>
+        </div>
+        <div className="stat-box">
+          <div className="stat-value" style={{ color: "var(--danger)" }}>
+            {stats.confused}
           </div>
+          <div className="stat-label">Confused</div>
+        </div>
+        <div className="stat-box">
+          <div className="stat-value" style={{ color: "var(--text-muted)" }}>
+            {stats.notVisited}
+          </div>
+          <div className="stat-label">Not Visited</div>
+        </div>
+        <div className="stat-box">
+          <div className="stat-value">{data.totalVisits}</div>
+          <div className="stat-label">Total Visits</div>
         </div>
       </div>
     </div>

@@ -1,82 +1,66 @@
 .dashboard-container {
-  padding: 20px;
-  text-align: left;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px;
 }
 
-.heading {
-  margin-bottom: 20px;
+.dashboard-header {
+  margin-bottom: 8px;
 }
 
-.due-box {
-  background: #fee2e2;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+.dashboard-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
 }
 
 .card {
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  background-color: #D4DE95;
-  transition: transform 0.2s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
-
 .card:hover {
-  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
 }
 
-.link {
-  color: #3D4127;
-  text-decoration: none;
-  display: block;
+.card h3 {
+  font-size: 15px;
   margin-bottom: 10px;
-  word-break: break-all;
+  color: var(--text-h);
 }
 
-.info {
-  font-size: 14px;
-  margin-top: 10px;
+.card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--primary);
+  margin-bottom: 12px;
 }
 
-.buttonGroup {
-  margin-top: 12px;
+.card .info p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
 }
-
-.button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-right: 8px;
-}
-
-.delete {
-  background-color: #ef4444;
-  color: white;
-}
-
-.edit {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.save {
-  background-color: #10b981;
-  color: white;
+.card .info strong {
+  color: var(--text);
 }
 
 .urgent {
-  border: 2px solid red;
+  border-left: 4px solid var(--danger);
 }
 
-.empty {
-  margin-top: 20px;
-  font-size: 18px;
+.missed-label {
+  display: inline-block;
+  background: var(--danger-bg);
+  color: var(--danger);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 6px;
 }

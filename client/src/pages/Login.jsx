@@ -1,66 +1,55 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ added
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate(); // ✅ added
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
-      const res = await api.post("/auth/login", {
-        email,
-        password,
-      });
-
-      console.log("FULL RESPONSE:", res.data);
-
-      // ✅ Save token
+      const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data));
-
-      console.log("Saved token:", localStorage.getItem("token"));
-
-      alert("Login successful");
-
-      // ✅ FIX: smooth navigation (no page reload)
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
-      alert("Login failed");
+      alert("Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="container">
-      <div className="card" style={{ maxWidth: "400px", margin: "auto" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <div style={{textAlign:"center", marginBottom:"8px", fontSize:"32px"}}>📚</div>
+        <h2>Welcome back</h2>
+        <p className="auth-subtitle">Sign in to continue learning</p>
 
-        <form onSubmit={handleSubmit} className="form">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input"
-          />
-
-          <button type="submit" className="btn" style={{ width: "100%" }}>
-            Login
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com" value={email}
+              onChange={e => setEmail(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" value={password}
+              onChange={e => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" className="btn" style={{width:"100%", marginTop:"8px"}}>
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
+
+        <p style={{textAlign:"center", marginTop:"20px", fontSize:"14px", color:"var(--text-muted)"}}>
+          Don't have an account? <Link to="/register">Create one</Link>
+        </p>
       </div>
     </div>
   );
